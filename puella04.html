@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>田文江 · 像素作品集 | Pixel Portfolio</title>
+  <style>
+:root{--bg-dark:#0f0f23;--bg-darker:#080818;--bg-panel:#1a1a3e;--bg-panel-2:#252552;--border-light:#5c5cff;--border-dark:#2a2a6e;--text-primary:#fff;--text-secondary:#b8b8e0;--text-muted:#7a7ab0;--accent-cyan:#00e0ff;--accent-pink:#ff4dc4;--accent-yellow:#ffe64d;--accent-green:#4dff88;--accent-orange:#ff994d;--accent-purple:#a855ff;--font-display:'Press Start 2P','Silkscreen',monospace;--font-body:'VT323','Silkscreen',monospace;--font-ui:'Silkscreen','VT323',monospace}
+*{margin:0;padding:0;box-sizing:border-box;image-rendering:pixelated;image-rendering:-moz-crisp-edges;image-rendering:crisp-edges}
+html{scroll-behavior:smooth}
+body{font-family:var(--font-body);font-size:18px;line-height:1.6;color:var(--text-primary);background-color:var(--bg-dark);background-image:radial-gradient(ellipse at top,var(--bg-panel) 0%,transparent 50%),linear-gradient(180deg,var(--bg-dark) 0%,var(--bg-darker) 100%);min-height:100vh;overflow-x:hidden}
+#scanlines{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:9999;background:repeating-linear-gradient(0deg,rgba(0,0,0,.12),rgba(0,0,0,.12) 1px,transparent 1px,transparent 2px);opacity:.4}
+#root{position:relative;z-index:1}
+.navbar{position:fixed;top:0;left:0;right:0;z-index:100;background:var(--bg-darker);border-bottom:4px solid var(--accent-cyan);box-shadow:0 4px 0 var(--border-dark),0 8px 16px rgba(0,0,0,.5)}
+.navbar-inner{max-width:1200px;margin:0 auto;padding:12px 24px;display:flex;align-items:center;justify-content:space-between;gap:24px}
+.navbar-logo{display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--accent-cyan);font-family:var(--font-display);font-size:12px;white-space:nowrap}
+.navbar-logo .pixel-heart{width:24px;height:24px}
+.nav-links{display:flex;align-items:center;gap:8px;list-style:none}
+.nav-link{display:inline-block;padding:8px 16px;font-family:var(--font-ui);font-size:14px;font-weight:700;color:var(--text-secondary);text-decoration:none;text-transform:uppercase;letter-spacing:1px;border:2px solid transparent;transition:all .1s steps(2);cursor:pointer;background:transparent}
+.nav-link:hover,.nav-link.active{color:var(--accent-yellow);border-color:var(--accent-yellow);background:rgba(255,230,77,.1);transform:translate(-2px,-2px);box-shadow:2px 2px 0 var(--accent-yellow)}
+.nav-toggle{display:none;width:40px;height:40px;background:var(--bg-panel);border:2px solid var(--border-light);cursor:pointer;padding:8px;flex-direction:column;justify-content:space-between}
+.nav-toggle span{display:block;width:100%;height:3px;background:var(--accent-cyan);transition:all .2s steps(2)}
+.section{padding:100px 24px 60px;max-width:1200px;margin:0 auto}
+.section-title{font-family:var(--font-display);font-size:20px;color:var(--accent-cyan);margin-bottom:32px;text-align:center;text-shadow:2px 2px 0 var(--border-dark),4px 4px 0 rgba(0,0,0,.3);letter-spacing:1px}
+.section-title::before,.section-title::after{content:'◆';display:inline-block;margin:0 16px;color:var(--accent-pink);font-size:14px;vertical-align:middle}
+.hero-banner{position:relative;background:linear-gradient(135deg,rgba(0,224,255,.1),rgba(255,77,196,.1)),var(--bg-panel);border:4px solid var(--accent-cyan);box-shadow:4px 4px 0 var(--border-dark),0 0 30px rgba(0,224,255,.2),inset 2px 2px 0 rgba(255,255,255,.1);padding:40px;margin-bottom:32px;overflow:hidden}
+.hero-banner::before{content:'';position:absolute;top:-2px;left:-2px;right:-2px;bottom:-2px;border:2px solid var(--accent-pink);pointer-events:none;opacity:.5}
+.hero-name{font-family:var(--font-display);font-size:28px;color:var(--accent-yellow);margin-bottom:12px;text-shadow:3px 3px 0 var(--border-dark),6px 6px 0 rgba(0,0,0,.3);letter-spacing:2px}
+.hero-title{font-family:var(--font-ui);font-size:20px;color:var(--accent-cyan);margin-bottom:20px;letter-spacing:1px}
+.hero-tagline{font-family:var(--font-body);font-size:18px;color:var(--text-secondary);max-width:600px}
+.blinking-cursor{display:inline-block;width:12px;height:18px;background:var(--accent-green);margin-left:4px;vertical-align:text-bottom;animation:blink 1s steps(2) infinite}
+@keyframes blink{0%,50%{opacity:1}51%,100%{opacity:0}}
+.hero-content{display:flex;align-items:flex-start;gap:20px;padding-top:4px}
+.hero-avatar{position:relative;flex-shrink:0;width:52px;height:52px;margin-top:2px}
+.hero-avatar-frame{width:52px;height:52px;border:3px solid var(--accent-cyan);box-shadow:3px 3px 0 var(--accent-pink),6px 6px 0 var(--border-dark),inset 1px 1px 0 rgba(255,255,255,.2);overflow:hidden;background:var(--bg-darker)}
+.hero-avatar-img{width:100%;height:100%;object-fit:cover;display:block;image-rendering:pixelated}
+.hero-avatar-corner{position:absolute;width:8px;height:8px;background:var(--accent-yellow);box-shadow:1px 1px 0 var(--border-dark)}
+.hero-avatar-corner.tl{top:-4px;left:-4px}.hero-avatar-corner.tr{top:-4px;right:-4px}.hero-avatar-corner.bl{bottom:-4px;left:-4px}.hero-avatar-corner.br{bottom:-4px;right:-4px}
+.hero-text{flex:1;min-width:0}
+.info-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin-bottom:32px}
+.info-card{background:var(--bg-panel-2);border:3px solid var(--border-light);box-shadow:3px 3px 0 var(--border-dark);padding:16px;transition:transform .1s steps(2)}
+.info-card:hover{transform:translate(-2px,-2px);box-shadow:5px 5px 0 var(--accent-cyan)}
+.info-card-label{font-family:var(--font-ui);font-size:12px;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px}
+.info-card-value{font-family:var(--font-body);font-size:18px;color:var(--text-primary);word-break:break-all}
+.skills-section{margin-bottom:32px}
+.skills-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px}
+.skill-item{background:var(--bg-panel-2);border:3px solid var(--border-light);box-shadow:3px 3px 0 var(--border-dark);padding:16px}
+.skill-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+.skill-name{font-family:var(--font-ui);font-size:14px;font-weight:700;color:var(--accent-cyan);letter-spacing:1px}
+.skill-level{font-family:var(--font-display);font-size:10px;color:var(--accent-yellow)}
+.skill-bar{height:16px;background:var(--bg-darker);border:2px solid var(--border-dark);position:relative;overflow:hidden}
+.skill-bar-fill{height:100%;transition:width 1s steps(20);position:relative}
+.skill-bar-fill::after{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background:repeating-linear-gradient(90deg,transparent 0,transparent 8px,rgba(255,255,255,.1) 8px,rgba(255,255,255,.1) 16px)}
+.traits-section{margin-bottom:32px}
+.pixel-tags{display:flex;flex-wrap:wrap;gap:10px}
+.pixel-tag{display:inline-block;padding:6px 14px;font-family:var(--font-ui);font-size:13px;font-weight:700;color:var(--bg-darker);background:var(--accent-green);border:2px solid var(--bg-darker);box-shadow:2px 2px 0 var(--border-dark);letter-spacing:.5px;transition:all .1s steps(2)}
+.pixel-tag:hover{transform:translate(-1px,-1px);box-shadow:3px 3px 0 var(--border-dark)}
+.pixel-tag.tag-cyan{background:var(--accent-cyan)}.pixel-tag.tag-pink{background:var(--accent-pink);color:#fff}.pixel-tag.tag-yellow{background:var(--accent-yellow)}.pixel-tag.tag-orange{background:var(--accent-orange)}
+.timeline-section{margin-bottom:32px}
+.timeline{position:relative;padding-left:32px}
+.timeline::before{content:'';position:absolute;left:10px;top:8px;bottom:8px;width:4px;background:var(--accent-cyan);box-shadow:2px 0 0 var(--border-dark)}
+.timeline-item{position:relative;margin-bottom:24px}
+.timeline-item::before{content:'';position:absolute;left:-28px;top:6px;width:16px;height:16px;background:var(--accent-yellow);border:3px solid var(--border-light);box-shadow:2px 2px 0 var(--border-dark)}
+.timeline-date{font-family:var(--font-display);font-size:10px;color:var(--accent-pink);margin-bottom:6px;letter-spacing:.5px}
+.timeline-company{font-family:var(--font-ui);font-size:18px;font-weight:700;color:var(--accent-cyan);margin-bottom:2px}
+.timeline-position{font-family:var(--font-body);font-size:16px;color:var(--accent-yellow);margin-bottom:8px}
+.timeline-card{background:var(--bg-panel-2);border:3px solid var(--border-light);box-shadow:3px 3px 0 var(--border-dark);padding:16px}
+.timeline-subtitle{font-family:var(--font-ui);font-size:13px;font-weight:700;color:var(--accent-green);margin:10px 0 6px;letter-spacing:.5px}
+.timeline-subtitle:first-child{margin-top:0}
+.timeline-list{list-style:none;padding:0}
+.timeline-list li{position:relative;padding-left:18px;margin-bottom:4px;font-family:var(--font-body);font-size:16px;color:var(--text-secondary)}
+.timeline-list li::before{content:'▸';position:absolute;left:0;color:var(--accent-cyan);font-size:12px;top:2px}
+.dual-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:32px}
+@media(max-width:640px){.dual-grid{grid-template-columns:1fr}}
+.education-card,.certs-card{background:var(--bg-panel-2);border:3px solid var(--border-light);box-shadow:3px 3px 0 var(--border-dark);padding:20px}
+.card-title{font-family:var(--font-display);font-size:12px;color:var(--accent-purple);margin-bottom:14px;letter-spacing:1px}
+.education-school{font-family:var(--font-ui);font-size:17px;font-weight:700;color:var(--accent-cyan);margin-bottom:4px}
+.education-degree{font-family:var(--font-body);font-size:16px;color:var(--accent-yellow);margin-bottom:4px}
+.education-date{font-family:var(--font-body);font-size:14px;color:var(--text-muted);margin-bottom:8px}
+.education-desc{font-family:var(--font-body);font-size:15px;color:var(--text-secondary);line-height:1.5}
+.cert-list{list-style:none;padding:0}
+.cert-list li{position:relative;padding-left:22px;margin-bottom:8px;font-family:var(--font-body);font-size:16px;color:var(--text-secondary)}
+.cert-list li::before{content:'★';position:absolute;left:0;color:var(--accent-yellow);font-size:12px;top:1px}
+.tabs-container{margin-bottom:24px}
+.pixel-tabs{display:flex;gap:0;border:3px solid var(--border-light);box-shadow:3px 3px 0 var(--border-dark);overflow:hidden;flex-wrap:wrap}
+.pixel-tab{flex:1;min-width:120px;padding:12px 20px;font-family:var(--font-ui);font-size:14px;font-weight:700;color:var(--text-secondary);background:var(--bg-panel-2);border:none;border-right:3px solid var(--border-light);cursor:pointer;letter-spacing:1px;text-transform:uppercase;transition:all .1s steps(2)}
+.pixel-tab:last-child{border-right:none}
+.pixel-tab:hover{color:var(--accent-cyan);background:var(--bg-panel)}
+.pixel-tab.active{color:var(--bg-darker);background:var(--accent-cyan)}
+.photo-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:16px}
+.photo-card{position:relative;aspect-ratio:1;border:3px solid var(--border-light);box-shadow:3px 3px 0 var(--border-dark);overflow:hidden;cursor:pointer;background:var(--bg-panel-2);transition:all .1s steps(2)}
+.photo-card:hover{transform:translate(-2px,-2px);box-shadow:5px 5px 0 var(--accent-pink);border-color:var(--accent-pink)}
+.photo-card img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .2s steps(4)}
+.photo-card:hover img{transform:scale(1.05)}
+.photo-card-overlay{position:absolute;bottom:0;left:0;right:0;padding:8px;background:linear-gradient(transparent,rgba(0,0,0,.8));opacity:0;transition:opacity .15s steps(3)}
+.photo-card:hover .photo-card-overlay{opacity:1}
+.photo-card-label{font-family:var(--font-ui);font-size:12px;color:var(--accent-cyan);text-align:center}
+.video-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:20px}
+.video-card{background:var(--bg-panel-2);border:3px solid var(--border-light);box-shadow:3px 3px 0 var(--border-dark);overflow:hidden;cursor:pointer;transition:all .1s steps(2);display:flex;flex-direction:column}
+.video-card:hover{transform:translate(-2px,-2px);box-shadow:5px 5px 0 var(--accent-yellow);border-color:var(--accent-yellow)}
+.video-thumb{position:relative;aspect-ratio:16/9;background:var(--bg-darker);overflow:hidden}
+.video-thumb video{width:100%;height:100%;object-fit:cover;display:block}
+.play-icon{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:0;height:0;border-left:24px solid var(--accent-yellow);border-top:16px solid transparent;border-bottom:16px solid transparent;filter:drop-shadow(2px 2px 0 var(--border-dark));transition:transform .1s steps(2)}
+.video-card:hover .play-icon{border-left-color:var(--accent-pink);transform:translate(-50%,-50%) scale(1.1)}
+.video-info{padding:12px;border-top:3px solid var(--border-dark);display:flex;align-items:center;gap:10px;background:var(--bg-panel)}
+.video-title{font-family:var(--font-ui);font-size:14px;font-weight:700;color:var(--text-primary);flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.video-expand-btn{position:absolute;top:8px;right:8px;width:32px;height:32px;background:var(--bg-darker);border:2px solid var(--accent-yellow);box-shadow:2px 2px 0 var(--border-dark);cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--accent-yellow);opacity:0;transition:all .1s steps(2);padding:4px;z-index:2}
+.video-card:hover .video-expand-btn{opacity:1}
+.video-expand-btn:hover{background:var(--accent-yellow);color:var(--bg-darker)}
+.video-info-expand{width:26px;height:26px;background:var(--bg-panel-2);border:2px solid var(--accent-cyan);color:var(--accent-cyan);cursor:pointer;font-family:var(--font-display);font-size:10px;display:flex;align-items:center;justify-content:center;transition:all .1s steps(2);flex-shrink:0}
+.video-info-expand:hover{background:var(--accent-cyan);color:var(--bg-darker)}
+.video-card-pending{cursor:not-allowed;opacity:.7}
+.video-card-pending:hover{transform:none;box-shadow:3px 3px 0 var(--border-dark);border-color:var(--border-light)}
+.video-thumb-pending{display:flex;flex-direction:column;align-items:center;justify-content:center;background:repeating-linear-gradient(45deg,var(--bg-panel-2),var(--bg-panel-2) 8px,var(--bg-darker) 8px,var(--bg-darker) 16px)}
+.video-pending-badge{font-family:var(--font-display);font-size:12px;color:var(--accent-yellow);background:var(--bg-darker);border:3px solid var(--accent-yellow);padding:8px 16px;box-shadow:3px 3px 0 var(--border-dark);letter-spacing:1px;margin-bottom:10px}
+.video-pending-hint{font-family:var(--font-body);font-size:14px;color:var(--text-muted)}
+.video-title-pending{color:var(--text-muted)}
+.lightbox-video{max-width:85vw;max-height:78vh;display:block}
+.lightbox-fullscreen{position:absolute;top:-20px;right:32px;width:40px;height:40px;background:var(--accent-cyan);border:3px solid var(--bg-darker);box-shadow:2px 2px 0 var(--border-dark);cursor:pointer;color:var(--bg-darker);display:flex;align-items:center;justify-content:center;transition:all .1s steps(2);z-index:10;padding:6px}
+.lightbox-fullscreen:hover{background:var(--accent-yellow);transform:translate(-1px,-1px);box-shadow:3px 3px 0 var(--border-dark)}
+.lightbox-content.lightbox-video{min-width:480px}
+.lightbox-overlay{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.92);z-index:1000;display:flex;align-items:center;justify-content:center;padding:40px;animation:fadeIn .2s steps(2)}
+@keyframes fadeIn{0%{opacity:0}100%{opacity:1}}
+.lightbox-content{position:relative;max-width:90vw;max-height:85vh;border:4px solid var(--accent-cyan);box-shadow:6px 6px 0 var(--border-dark),0 0 40px rgba(0,224,255,.3);background:var(--bg-darker)}
+.lightbox-content img,.lightbox-content video{display:block;max-width:90vw;max-height:85vh;object-fit:contain}
+.lightbox-close{position:absolute;top:-20px;right:-20px;width:40px;height:40px;background:var(--accent-pink);border:3px solid var(--bg-darker);box-shadow:2px 2px 0 var(--border-dark);cursor:pointer;font-family:var(--font-display);font-size:14px;color:var(--bg-darker);display:flex;align-items:center;justify-content:center;transition:all .1s steps(2);z-index:10}
+.lightbox-close:hover{background:var(--accent-yellow);transform:translate(-1px,-1px);box-shadow:3px 3px 0 var(--border-dark)}
+.lightbox-nav{position:absolute;top:50%;transform:translateY(-50%);width:50px;height:50px;background:var(--bg-panel);border:3px solid var(--accent-cyan);box-shadow:2px 2px 0 var(--border-dark);cursor:pointer;font-family:var(--font-display);font-size:16px;color:var(--accent-cyan);display:flex;align-items:center;justify-content:center;transition:all .1s steps(2);z-index:10}
+.lightbox-nav:hover{background:var(--accent-cyan);color:var(--bg-darker)}
+.lightbox-prev{left:-70px}.lightbox-next{right:-70px}
+.lightbox-caption{position:absolute;bottom:-40px;left:0;right:0;text-align:center;font-family:var(--font-ui);font-size:14px;font-weight:700;color:var(--accent-yellow);letter-spacing:1px}
+.footer{text-align:center;padding:40px 24px;border-top:4px solid var(--accent-cyan);background:var(--bg-darker);margin-top:60px}
+.footer-text{font-family:var(--font-body);font-size:16px;color:var(--text-muted);margin-bottom:8px}
+.footer-signature{font-family:var(--font-display);font-size:10px;color:var(--accent-pink);letter-spacing:1px}
+@media(max-width:768px){.nav-toggle{display:flex}.nav-links{position:fixed;top:60px;left:0;right:0;bottom:0;background:var(--bg-darker);flex-direction:column;padding:24px;gap:12px;transform:translateX(100%);transition:transform .2s steps(3);border-top:4px solid var(--accent-cyan);z-index:99}.nav-links.open{transform:translateX(0)}.nav-link{width:100%;text-align:center;padding:14px;font-size:16px}.navbar-inner{padding:10px 16px}.navbar-logo{font-size:10px}.section{padding:80px 16px 40px}.section-title{font-size:14px;margin-bottom:24px}.section-title::before,.section-title::after{margin:0 8px;font-size:10px}.hero-banner{padding:24px}.hero-content{gap:14px;align-items:flex-start;padding-top:2px}.hero-avatar{width:40px;height:40px;margin-top:1px}.hero-avatar-frame{width:40px;height:40px;border-width:2px}.hero-avatar-corner{width:6px;height:6px}.hero-avatar-corner.tl{top:-3px;left:-3px}.hero-avatar-corner.tr{top:-3px;right:-3px}.hero-avatar-corner.bl{bottom:-3px;left:-3px}.hero-avatar-corner.br{bottom:-3px;right:-3px}.hero-name{font-size:18px}.hero-title{font-size:16px}.info-grid{grid-template-columns:1fr 1fr}.photo-grid{grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:10px}.video-grid{grid-template-columns:1fr 1fr;gap:12px}.lightbox-overlay{padding:20px}.lightbox-prev{left:10px}.lightbox-next{right:10px}.lightbox-nav{width:40px;height:40px;font-size:12px}}
+@media(max-width:480px){.info-grid{grid-template-columns:1fr}.video-grid{grid-template-columns:1fr}.hero-name{font-size:14px}}
+::-webkit-scrollbar{width:12px;height:12px}
+::-webkit-scrollbar-track{background:var(--bg-darker);border-left:2px solid var(--border-dark)}
+::-webkit-scrollbar-thumb{background:var(--border-light);border:2px solid var(--bg-darker)}
+::-webkit-scrollbar-thumb:hover{background:var(--accent-cyan)}
+::selection{background:var(--accent-pink);color:var(--bg-darker)}
+  </style>
+</head>
+<body>
+  <div id="scanlines"></div>
+  <div id="root"></div>
+  <script src="https://cdn.jsdelivr.net/npm/react@18.3.1/umd/react.production.min.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/react-dom@18.3.1/umd/react-dom.production.min.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@babel/standalone@7.29.0/babel.min.js" crossorigin="anonymous"></script>
+
+  <script type="text/babel">
+function PixelHeart({color='#ff4dc4',size=24}){return(<svg className="pixel-heart" width={size} height={size} viewBox="0 0 16 16" style={{imageRendering:'pixelated',shapeRendering:'crispEdges'}}><rect x="2" y="3" width="4" height="1" fill={color}/><rect x="10" y="3" width="4" height="1" fill={color}/><rect x="1" y="4" width="6" height="1" fill={color}/><rect x="9" y="4" width="6" height="1" fill={color}/><rect x="1" y="5" width="14" height="1" fill={color}/><rect x="1" y="6" width="14" height="1" fill={color}/><rect x="2" y="7" width="12" height="1" fill={color}/><rect x="3" y="8" width="10" height="1" fill={color}/><rect x="4" y="9" width="8" height="1" fill={color}/><rect x="5" y="10" width="6" height="1" fill={color}/><rect x="6" y="11" width="4" height="1" fill={color}/><rect x="7" y="12" width="2" height="1" fill={color}/><rect x="3" y="5" width="2" height="1" fill="rgba(255,255,255,.4)"/></svg>)}
+function PixelCamera({color='#00e0ff',size=20}){return(<svg width={size} height={size} viewBox="0 0 20 16" style={{imageRendering:'pixelated',shapeRendering:'crispEdges',display:'inline-block',verticalAlign:'middle'}}><rect x="4" y="0" width="4" height="2" fill={color}/><rect x="2" y="2" width="16" height="2" fill={color}/><rect x="0" y="4" width="20" height="10" fill={color}/><rect x="2" y="14" width="16" height="2" fill={color}/><rect x="7" y="5" width="6" height="6" fill="#0f0f23"/><rect x="8" y="6" width="4" height="4" fill={color}/><rect x="9" y="7" width="2" height="2" fill="#0f0f23"/><rect x="14" y="6" width="3" height="2" fill="#ffe64d"/></svg>)}
+
+function Lightbox({items,currentIndex,onClose,onPrev,onNext,type='image'}){
+  const videoRef=React.useRef(null);const containerRef=React.useRef(null);
+  React.useEffect(()=>{
+    const h=(e)=>{
+      if(e.key==='Escape'){if(document.fullscreenElement){document.exitFullscreen().catch(()=>{});return}onClose()}
+      if(e.key==='ArrowLeft')onPrev();
+      if(e.key==='ArrowRight')onNext();
+      if(e.key==='f'&&type==='video'&&videoRef.current)toggleFullscreen();
+    };
+    window.addEventListener('keydown',h);document.body.style.overflow='hidden';
+    return()=>{window.removeEventListener('keydown',h);document.body.style.overflow='';if(videoRef.current)videoRef.current.pause()};
+  },[onClose,onPrev,onNext,type]);
+  React.useEffect(()=>{if(type==='video'&&videoRef.current){videoRef.current.currentTime=0;videoRef.current.play().catch(()=>{})}},[currentIndex,type]);
+  const toggleFullscreen=()=>{const el=containerRef.current||videoRef.current;if(!el)return;if(document.fullscreenElement){document.exitFullscreen().catch(()=>{})}else if(el.requestFullscreen){el.requestFullscreen().catch(()=>{})}else if(el.webkitRequestFullscreen){el.webkitRequestFullscreen()}};
+  if(currentIndex<0||currentIndex>=items.length)return null;
+  const item=items[currentIndex];
+  const src=typeof item==='string'?item:(item.url||item.src||'');
+  const caption=typeof item==='string'?`${currentIndex+1}/${items.length}`:(item.title||`${currentIndex+1}/${items.length}`);
+  return(<div className="lightbox-overlay" onClick={onClose}><div className={`lightbox-content lightbox-${type}`} ref={containerRef} onClick={(e)=>e.stopPropagation()}>
+    <button className="lightbox-close" onClick={onClose}>✕</button>
+    {type==='video'&&<button className="lightbox-fullscreen" onClick={toggleFullscreen} title="全屏播放(F键)"><svg width="18" height="18" viewBox="0 0 16 16" style={{imageRendering:'pixelated',shapeRendering:'crispEdges',display:'block'}}><rect x="0" y="0" width="5" height="2" fill="currentColor"/><rect x="0" y="0" width="2" height="5" fill="currentColor"/><rect x="11" y="0" width="5" height="2" fill="currentColor"/><rect x="14" y="0" width="2" height="5" fill="currentColor"/><rect x="0" y="14" width="5" height="2" fill="currentColor"/><rect x="0" y="11" width="2" height="5" fill="currentColor"/><rect x="11" y="14" width="5" height="2" fill="currentColor"/><rect x="14" y="11" width="2" height="5" fill="currentColor"/></svg></button>}
+    {items.length>1&&<button className="lightbox-nav lightbox-prev" onClick={onPrev}>◀</button>}
+    {type==='image'?<img src={src} alt={caption}/>:<video ref={videoRef} src={src} controls autoPlay playsInline className="lightbox-video"/>}
+    {items.length>1&&<button className="lightbox-nav lightbox-next" onClick={onNext}>▶</button>}
+    <div className="lightbox-caption">{caption}[{currentIndex+1}/{items.length}]{type==='video'&&<span style={{marginLeft:'12px',color:'var(--text-muted)',fontSize:'12px'}}>按F全屏</span>}</div>
+  </div></div>);
+}
+
+function Navbar({activeSection,onNavigate}){
+  const[open,setOpen]=React.useState(false);
+  const items=[{id:'about',label:'个人简介'},{id:'photo',label:'图片作品'},{id:'video',label:'视频作品'}];
+  const h=(id)=>{onNavigate(id);setOpen(false)};
+  return(<nav className="navbar"><div className="navbar-inner">
+    <a href="#about" className="navbar-logo" onClick={(e)=>{e.preventDefault();h('about')}}><PixelHeart color="#ff4dc4" size={28}/><span>TWJ.PIXEL</span></a>
+    <button className="nav-toggle" onClick={()=>setOpen(!open)}><span/><span/><span/></button>
+    <ul className={`nav-links ${open?'open':''}`}>{items.map(it=>(<li key={it.id}><button className={`nav-link ${activeSection===it.id?'active':''}`} onClick={()=>h(it.id)}>{it.label}</button></li>))}</ul>
+  </div></nav>);
+}
+
+function About(){
+  const basicInfo=[
+    {label:'姓名',value:'田文江',color:'#ffe64d'},{label:'性别',value:'男',color:'#00e0ff'},
+    {label:'年龄',value:'25岁',color:'#4dff88'},{label:'城市',value:'深圳',color:'#ff994d'},
+    {label:'电话',value:'19184883724',color:'#a855ff'},{label:'邮箱',value:'tianwenjiang0513@163.com',color:'#ff4dc4'},
+    {label:'工作经验',value:'2年',color:'#4dff88'},{label:'职位',value:'摄影师',color:'#ffe64d'}
+  ];
+  const skills=[
+    {name:'拍摄能力',level:95,desc:'索尼/尼康设备 + 无人机航拍',color:'#00e0ff'},
+    {name:'后期能力',level:90,desc:'达芬奇 / 剪映 / Lightroom',color:'#ff4dc4'},
+    {name:'灯光能力',level:80,desc:'场景灯光布控与调整',color:'#ffe64d'},
+    {name:'资源整合',level:85,desc:'文旅项目资源整合与转化',color:'#4dff88'}
+  ];
+  const traits=[
+    {text:'敢于挑战',color:'tag-cyan'},{text:'主动推进',color:'tag-green'},
+    {text:'执行力强',color:'tag-yellow'},{text:'沟通高效',color:'tag-pink'},
+    {text:'学习能力强',color:'tag-orange'},{text:'关注行业趋势',color:'tag-cyan'}
+  ];
+  const workExperience=[
+    {date:'2024.07 - 至今',company:'贵州贵耀旅游开发投资有限公司',position:'摄影',
+     duties:['乌镇集团文旅项目品牌宣传内容产出（视频向与图片向）','项目酒店房间视频与图片内容拍摄产出','餐饮部门菜品套餐图片拍摄','项目内各类产品图拍摄'],
+     achievements:['为央视、中国外交部官方海外社媒账号、省市级文旅官方号提供宣传成片及素材','完成非遗类目宣传片、纪录片、酒店房间、餐饮、手工艺等产品拍摄与产出','优化品宣内容工作流程，搭建项目素材资料库','高效对接需求部门，协调分配工作任务']},
+    {date:'2023.09 - 2023.12',company:'湖州全都来了网络科技有限公司',position:'摄影实习生',
+     duties:['为公司多家客户提供自媒体运营内容拍摄','为浙江省德清市官方文旅账号拍摄各类素材'],
+     achievements:['接触多种拍摄题材：酒店民宿、自然风景、人文活动、体育活动','高效优质完成各类题材拍摄任务']}
+  ];
+  const education={date:'2020 - 2024',school:'浙江理工大学',degree:'本科',major:'数字媒体技术',desc:'主修影视编辑、动画制作、影视特效、纪录短片拍摄等，系统掌握影视内容创作全流程'};
+  const certificates=['大学英语六级（CET-6）','驾驶证 C2'];
+  return(<section id="about" className="section">
+    <h2 className="section-title">个人简介 / PROFILE</h2>
+    <div className="hero-banner"><div className="hero-content">
+      <div className="hero-avatar"><div className="hero-avatar-frame"><img src="https://aka.doubaocdn.com/s/oxOMX5drot" alt="田文江-摄影师证件照" className="hero-avatar-img"/></div><div className="hero-avatar-corner tl"/><div className="hero-avatar-corner tr"/><div className="hero-avatar-corner bl"/><div className="hero-avatar-corner br"/></div>
+      <div className="hero-text"><div className="hero-name">田文江</div><div className="hero-title">★ PHOTOGRAPHER · 摄影师 ★</div><p className="hero-tagline">2年影视/新媒体行业拍摄经验，精通从拍摄到成片全流程<span className="blinking-cursor"></span></p></div>
+    </div></div>
+    <div className="info-grid">{basicInfo.map((it,i)=>(<div key={i} className="info-card"><div className="info-card-label" style={{color:it.color}}>▸ {it.label}</div><div className="info-card-value">{it.value}</div></div>))}</div>
+    <div className="skills-section"><div className="card-title" style={{marginBottom:'16px'}}>★ 专业能力 / SKILLS</div><div className="skills-grid">{skills.map((s,i)=>(<div key={i} className="skill-item"><div className="skill-header"><span className="skill-name" style={{color:s.color}}>{s.name}</span><span className="skill-level">{s.level}%</span></div><div className="skill-bar"><div className="skill-bar-fill" style={{width:s.level+'%',background:s.color}}/></div><div style={{fontFamily:"'VT323',monospace",fontSize:'15px',color:'var(--text-muted)',marginTop:'8px'}}>{s.desc}</div></div>))}</div></div>
+    <div className="traits-section"><div className="card-title" style={{marginBottom:'12px'}}>◆ 个人特质 / TRAITS</div><div className="pixel-tags">{traits.map((t,i)=>(<span key={i} className={`pixel-tag ${t.color}`}>{t.text}</span>))}</div></div>
+    <div className="timeline-section"><div className="card-title" style={{marginBottom:'20px'}}>⏤ 工作经历 / EXPERIENCE</div><div className="timeline">{workExperience.map((e,i)=>(<div key={i} className="timeline-item"><div className="timeline-date">{e.date}</div><div className="timeline-company">{e.company}</div><div className="timeline-position">▸ {e.position}</div><div className="timeline-card"><div className="timeline-subtitle">▸ 工作内容</div><ul className="timeline-list">{e.duties.map((d,j)=>(<li key={j}>{d}</li>))}</ul><div className="timeline-subtitle">★ 工作业绩</div><ul className="timeline-list">{e.achievements.map((a,j)=>(<li key={j}>{a}</li>))}</ul></div></div>))}</div></div>
+    <div className="dual-grid">
+      <div className="education-card"><div className="card-title">◆ 教育经历 / EDUCATION</div><div className="education-school">{education.school}</div><div className="education-degree">{education.degree} · {education.major}</div><div className="education-date">{education.date}</div><div className="education-desc">{education.desc}</div></div>
+      <div className="certs-card"><div className="card-title">★ 资格证书 / CERTIFICATES</div><ul className="cert-list">{certificates.map((c,i)=>(<li key={i}>{c}</li>))}</ul></div>
+    </div>
+  </section>);
+}
+
+const PHOTO_CATEGORIES=[
+  {id:'human',label:'人文演艺',count:10,images:[
+    'https://aka.doubaocdn.com/s/KAw489hpbM','https://aka.doubaocdn.com/s/XQpvRvQ0X5','https://aka.doubaocdn.com/s/xV5OhuOH80',
+    'https://aka.doubaocdn.com/s/eVvAbb2Eyf','https://aka.doubaocdn.com/s/HtO5Ew3IgU','https://aka.doubaocdn.com/s/Vo0tnMr97v',
+    'https://aka.doubaocdn.com/s/pUrZ25h5xA','https://aka.doubaocdn.com/s/h8q9Ftos71','https://aka.doubaocdn.com/s/ttNypkwAvn',
+    'https://aka.doubaocdn.com/s/MLlbnYUcrh'
+  ]},
+  {id:'object',label:'物品',count:18,images:[
+    'https://aka.doubaocdn.com/s/2OWg2RqxnQ','https://aka.doubaocdn.com/s/PI1XDHLdLt','https://aka.doubaocdn.com/s/Ts2ZD0rCjH',
+    'https://aka.doubaocdn.com/s/By2dBWe78V','https://aka.doubaocdn.com/s/8zqJMpmeas','https://aka.doubaocdn.com/s/r9mOabQiV1',
+    'https://aka.doubaocdn.com/s/NuDUTvNzxq','https://aka.doubaocdn.com/s/5tUwDgPyt2','https://aka.doubaocdn.com/s/bOBN95UvZQ',
+    'https://aka.doubaocdn.com/s/ZCWifHsuTZ','https://aka.doubaocdn.com/s/qrmUjBzXB9','https://aka.doubaocdn.com/s/XueVWnG1n5',
+    'https://aka.doubaocdn.com/s/my5Sln78H4','https://aka.doubaocdn.com/s/0JUn4vVLLA','https://aka.doubaocdn.com/s/jPtoWVtG2t',
+    'https://aka.doubaocdn.com/s/4EhNMWSFLS','https://aka.doubaocdn.com/s/D2bRRWkmyZ','https://aka.doubaocdn.com/s/cFFWbYFoht'
+  ]},
+  {id:'landscape',label:'风光',count:47,images:[
+    'https://aka.doubaocdn.com/s/wSq387N4DS','https://aka.doubaocdn.com/s/jin25uqNe3','https://aka.doubaocdn.com/s/Qe05DHVdjo',
+    'https://aka.doubaocdn.com/s/29VQhfaQZy','https://aka.doubaocdn.com/s/TfokWYSTZC','https://aka.doubaocdn.com/s/dnjN8Exlxk',
+    'https://aka.doubaocdn.com/s/c2toJoEEhO','https://aka.doubaocdn.com/s/OguM63CtVf','https://aka.doubaocdn.com/s/c5laOgH2gN',
+    'https://aka.doubaocdn.com/s/gWKKqfDxal','https://aka.doubaocdn.com/s/wmeTNCSeUV','https://aka.doubaocdn.com/s/oggmEGNUuE',
+    'https://aka.doubaocdn.com/s/z6SzwvhHV3','https://aka.doubaocdn.com/s/6QbWoA4OSQ','https://aka.doubaocdn.com/s/bmk2IVnjCz',
+    'https://aka.doubaocdn.com/s/IHy2TujVrx','https://aka.doubaocdn.com/s/j4Ox6JyZRs','https://aka.doubaocdn.com/s/ifiJaZ9lxI',
+    'https://aka.doubaocdn.com/s/jFzkZ38nTJ','https://aka.doubaocdn.com/s/RsA6kptJIT','https://aka.doubaocdn.com/s/zlV0QLf0zo',
+    'https://aka.doubaocdn.com/s/sXdRwPfa4N','https://aka.doubaocdn.com/s/NumNosrMCm','https://aka.doubaocdn.com/s/xijDFQVUJl',
+    'https://aka.doubaocdn.com/s/i0O9B1fBzJ','https://aka.doubaocdn.com/s/4txLrwJHEA','https://aka.doubaocdn.com/s/NknwjWjhBU',
+    'https://aka.doubaocdn.com/s/MwFAA4VN8i','https://aka.doubaocdn.com/s/zpmqvVCvzu','https://aka.doubaocdn.com/s/aKjqFvm4Cp',
+    'https://aka.doubaocdn.com/s/xYOlVxwLRc','https://aka.doubaocdn.com/s/Udickdoau0','https://aka.doubaocdn.com/s/vTylayDQCq',
+    'https://aka.doubaocdn.com/s/upoboBG0OC','https://aka.doubaocdn.com/s/sXNxEiVCZY','https://aka.doubaocdn.com/s/SYfmyUEt7V',
+    'https://aka.doubaocdn.com/s/fXeGbrGGzp','https://aka.doubaocdn.com/s/x5asHWzj2F','https://aka.doubaocdn.com/s/Zy92lJb6He',
+    'https://aka.doubaocdn.com/s/91pKA9MMxc','https://aka.doubaocdn.com/s/tGQemeeDp0','https://aka.doubaocdn.com/s/AJGvgqUi0R',
+    'https://aka.doubaocdn.com/s/BkRnfhra9c','https://aka.doubaocdn.com/s/UwEztHO3mw','https://aka.doubaocdn.com/s/WgMnMI23dT',
+    'https://aka.doubaocdn.com/s/U9f7ucg30e','https://aka.doubaocdn.com/s/rVU34mmo9i'
+  ]}
+];
+
+function PhotoGallery(){
+  const[tab,setTab]=React.useState('human');const[li,setLi]=React.useState(-1);
+  const cur=PHOTO_CATEGORIES.find(c=>c.id===tab);const imgs=cur?cur.images:[];
+  return(<section id="photo" className="section">
+    <h2 className="section-title">图片作品 / PHOTOS</h2>
+    <div className="tabs-container"><div className="pixel-tabs">{PHOTO_CATEGORIES.map(c=>(<button key={c.id} className={`pixel-tab ${tab===c.id?'active':''}`} onClick={()=>setTab(c.id)}>{c.label}[{c.count}]</button>))}</div></div>
+    <div className="photo-grid">{imgs.map((src,i)=>(<div key={i} className="photo-card" onClick={()=>setLi(i)}><img src={src} alt={`${cur.label} ${i+1}`} loading="lazy"/><div className="photo-card-overlay"><span className="photo-card-label">▸ VIEW #{i+1}</span></div></div>))}</div>
+    {li>=0&&<Lightbox items={imgs} currentIndex={li} onClose={()=>setLi(-1)} onPrev={()=>setLi(i=>i>0?i-1:imgs.length-1)} onNext={()=>setLi(i=>i<imgs.length-1?i+1:0)} type="image"/>}
+  </section>);
+}
+
+const VIDEO_LIST=[
+  {title:'侗黔白马酒店宣传',url:'https://aka.doubaocdn.com/s/ikspTZ288u'},
+  {title:'寨龙宣传',url:'https://aka.doubaocdn.com/s/rNOgu76LS2'},
+  {title:'彝族',url:'https://aka.doubaocdn.com/s/FwKSFMUacc'},
+  {title:'旅拍快剪',url:'https://aka.doubaocdn.com/s/VyDQDsXWyV'},
+  {title:'杀年猪活动',url:'https://aka.doubaocdn.com/s/0yUDXP1bKF'},
+  {title:'氛围感短视频',url:'https://aka.doubaocdn.com/s/EitzUbLgVo'},
+  {title:'汽车运镜',url:'https://aka.doubaocdn.com/s/9HAN99WDrU'},
+  {title:'游玩攻略口播01',url:'',pending:true},
+  {title:'游玩攻略口播02',url:'',pending:true},
+  {title:'演艺活动快剪',url:'https://aka.doubaocdn.com/s/7LtxlWcdSu'},
+  {title:'烟花快剪',url:'https://aka.doubaocdn.com/s/eHxBQV0Ere'},
+  {title:'碎片vlog快剪',url:'https://aka.doubaocdn.com/s/zoXNQkHfVo'},
+  {title:'镖师大会活动',url:'https://aka.doubaocdn.com/s/hjVf51SajO'},
+  {title:'非遗和合香',url:'https://aka.doubaocdn.com/s/TJ0y9SHV7F'},
+  {title:'非遗苗绣',url:'https://aka.doubaocdn.com/s/gDJDkqblkm'},
+  {title:'音疗宣传',url:'https://aka.doubaocdn.com/s/BLNbdgvuT8'}
+];
+
+function VideoGallery(){
+  const[li,setLi]=React.useState(-1);
+  const avail=VIDEO_LIST.filter(v=>!v.pending).length;
+  const pend=VIDEO_LIST.length-avail;
+  const open=(i)=>{const v=VIDEO_LIST[i];if(v&&!v.pending)setLi(i)};
+  const nextAvail=(start,dir)=>{const n=VIDEO_LIST.length;let i=start;for(let s=0;s<n;s++){i=(i+dir+n)%n;if(!VIDEO_LIST[i].pending)return i}return start};
+  return(<section id="video" className="section">
+    <h2 className="section-title">视频作品 / VIDEOS</h2>
+    <div style={{textAlign:'center',marginBottom:'24px',fontFamily:"'VT323',monospace",fontSize:'18px',color:'var(--text-muted)'}}>▸ 共 {avail} 个作品{pend>0?` · ${pend} 个待上传`:''} · 点击播放 · 方向键切换</div>
+    <div className="video-grid">{VIDEO_LIST.map((v,i)=>(<div key={i} className={`video-card${v.pending?' video-card-pending':''}`}>
+      {v.pending?(<div className="video-thumb video-thumb-pending"><div className="video-pending-badge">待上传</div><div className="video-pending-hint">即将上线</div></div>):(
+      <div className="video-thumb" onClick={()=>open(i)}>
+        <video src={v.url} muted preload="metadata" playsInline onMouseEnter={(e)=>e.target.play().catch(()=>{})} onMouseLeave={(e)=>{e.target.pause();e.target.currentTime=0}}/>
+        <div className="play-icon"/>
+        <button className="video-expand-btn" onClick={(e)=>{e.stopPropagation();open(i)}} title="大屏播放"><svg width="16" height="16" viewBox="0 0 16 16" style={{imageRendering:'pixelated',shapeRendering:'crispEdges'}}><rect x="0" y="0" width="5" height="2" fill="currentColor"/><rect x="0" y="0" width="2" height="5" fill="currentColor"/><rect x="11" y="0" width="5" height="2" fill="currentColor"/><rect x="14" y="0" width="2" height="5" fill="currentColor"/><rect x="0" y="14" width="5" height="2" fill="currentColor"/><rect x="0" y="11" width="2" height="5" fill="currentColor"/><rect x="11" y="14" width="5" height="2" fill="currentColor"/><rect x="14" y="11" width="2" height="5" fill="currentColor"/></svg></button>
+      </div>)}
+      <div className="video-info"><PixelCamera color={v.pending?'#7a7ab0':'#ffe64d'} size={16}/><span className={`video-title${v.pending?' video-title-pending':''}`}>{v.title}</span>{!v.pending&&<button className="video-info-expand" onClick={()=>open(i)} title="大屏播放">▢</button>}</div>
+    </div>))}</div>
+    {li>=0&&<Lightbox items={VIDEO_LIST} currentIndex={li} onClose={()=>setLi(-1)} onPrev={()=>setLi(i=>nextAvail(i,-1))} onNext={()=>setLi(i=>nextAvail(i,1))} type="video"/>}
+  </section>);
+}
+
+function App(){
+  const[sec,setSec]=React.useState('about');
+  React.useEffect(()=>{
+    const hs=()=>{const sp=window.scrollY+120;let cur='about';['about','photo','video'].forEach(id=>{const el=document.getElementById(id);if(el&&el.offsetTop<=sp)cur=id});setSec(cur)};
+    window.addEventListener('scroll',hs,{passive:true});hs();
+    return()=>window.removeEventListener('scroll',hs);
+  },[]);
+  const nav=(id)=>{const el=document.getElementById(id);if(el)window.scrollTo({top:el.offsetTop-70,behavior:'smooth'})};
+  return(<div><Navbar activeSection={sec} onNavigate={nav}/><main><About/><PhotoGallery/><VideoGallery/></main>
+    <footer className="footer"><p className="footer-text">© 2024 田文江 · 像素风个人作品集</p><p className="footer-signature">◆ PIXEL PORTFOLIO · 8-BIT STYLE ◆</p></footer>
+  </div>);
+}
+ReactDOM.createRoot(document.getElementById('root')).render(<App/>);
+  </script>
+</body>
+</html>
